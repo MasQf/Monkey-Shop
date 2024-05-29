@@ -415,7 +415,7 @@ class _HatDetailState extends State<HatDetail> {
                             },
                             child: Row(
                               children: [
-                                Icon(Icons.back_hand_sharp),
+                                Icon(Icons.front_hand_rounded),
                                 SizedBox(width: 5),
                                 Text('TAKE'),
                               ],

@@ -415,7 +415,7 @@ class _AngelDetailState extends State<AngelDetail> {
                             },
                             child: Row(
                               children: [
-                                Icon(Icons.back_hand_sharp),
+                                Icon(Icons.front_hand_rounded),
                                 SizedBox(width: 5),
                                 Text('TAKE'),
                               ],

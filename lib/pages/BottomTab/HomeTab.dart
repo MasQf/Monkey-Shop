@@ -89,16 +89,16 @@ class _HomeTabState extends State<HomeTab> {
                       children: [
                         Row(
                           children: [
-                            Text('Discount ',
+                            Text('Popular ',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
                                 )),
                             Icon(
-                              Icons.discount,
+                              Icons.emoji_emotions,
                               size: 30,
-                              color: const Color.fromARGB(255, 242, 121, 113),
+                              color: Color.fromARGB(255, 233, 117, 117),
                             ),
                           ],
                         ),
@@ -106,7 +106,7 @@ class _HomeTabState extends State<HomeTab> {
                           height: 15,
                         ),
                         /*
-                              ========Rec商品滑动栏=========
+                              ========Popular商品滑动栏=========
                            */
                         Container(
                           height: 200,
@@ -144,7 +144,13 @@ class _HomeTabState extends State<HomeTab> {
                           height: 20,
                         ),
                         /*
-                              ========商品=========
+                          ============特惠商品===========
+                         */
+                        SizedBox(
+                          height: 20,
+                        ),
+                        /*
+                              ========Rec商品=========
                            */
 
                         Row(

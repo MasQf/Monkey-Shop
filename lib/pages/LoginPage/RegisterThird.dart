@@ -36,8 +36,23 @@ class _RegisterThirdState extends State<RegisterThird> {
       bool success = await Provider.of<UserProvider>(context, listen: false)
           .registerUser(widget.username, widget.email, _passwordController.text);
       if (success) {
-        print('success login');
         Navigator.pushNamed(context, RoutePath.Login);
+        DelightToastBar(
+          builder: (BuildContext context) {
+            return ToastCard(
+                leading: Icon(
+                  Icons.sentiment_satisfied_alt,
+                  size: 32,
+                ),
+                title: Text(
+                  'Successfully register!',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                ));
+          },
+          position: DelightSnackbarPosition.top,
+          autoDismiss: true,
+          snackbarDuration: Duration(seconds: 2),
+        ).show(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -73,7 +88,7 @@ class _RegisterThirdState extends State<RegisterThird> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Color.fromARGB(255, 237, 195, 189),
+          backgroundColor: Color.fromARGB(255, 243, 210, 174),
           automaticallyImplyLeading: false,
         ),
         body: SafeArea(
@@ -83,7 +98,7 @@ class _RegisterThirdState extends State<RegisterThird> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Color.fromARGB(255, 237, 195, 189), Color.fromARGB(255, 235, 91, 91)],
+                  colors: [Color.fromARGB(255, 243, 210, 174), Color.fromARGB(255, 229, 114, 6)],
                 ),
               ),
               padding: EdgeInsets.symmetric(horizontal: 0, vertical: 25),
@@ -103,10 +118,10 @@ class _RegisterThirdState extends State<RegisterThird> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 35),
                   Text(
                     textAlign: TextAlign.center,
-                    "Don't let your wallet bleed.",
+                    "Enjoy the journey!",
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w800,
@@ -114,9 +129,9 @@ class _RegisterThirdState extends State<RegisterThird> {
                           BoxShadow(color: Color.fromARGB(134, 255, 255, 255), offset: Offset(0, 2))
                         ],
                         height: 1.5,
-                        color: Color.fromARGB(255, 234, 113, 113)),
+                        color: Color.fromARGB(255, 244, 101, 19)),
                   ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 40),
                   Container(
                     width: 350,
                     height: 60,
@@ -161,8 +176,8 @@ class _RegisterThirdState extends State<RegisterThird> {
                   Stack(
                     children: [
                       Transform.scale(
-                        scale: 1.68,
-                        child: Image.asset('assets/images/wallet.png'),
+                        scale: 1.38,
+                        child: Image.asset('assets/images/food.png'),
                       ),
                       Positioned(
                         child: Column(
@@ -258,53 +273,59 @@ class _RegisterThirdState extends State<RegisterThird> {
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MaterialButton(
-                        height: 130,
-                        minWidth: 80,
-                        elevation: 8,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        color: Colors.grey[200],
-                        child: Icon(
-                          Icons.navigate_before_rounded,
-                          size: 50,
-                          color: const Color.fromARGB(255, 0, 0, 0),
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20), bottomRight: Radius.circular(20))),
-                      ),
-                      Text(
-                        '3/3',
-                        style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.w700,
+                      Positioned(
+                        top: 250,
+                        child: MaterialButton(
+                          height: 130,
+                          minWidth: 80,
+                          elevation: 8,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          color: Colors.grey[200],
+                          child: Icon(
+                            Icons.navigate_before_rounded,
+                            size: 50,
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                          ),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20), bottomRight: Radius.circular(20))),
                         ),
                       ),
-                      MaterialButton(
-                        height: 130,
-                        minWidth: 80,
-                        elevation: 8,
-                        onPressed: () {
-                          onRegister();
-                        },
-                        color: _isPasswordSixCharacters
-                            ? Colors.grey[200]
-                            : Color.fromARGB(131, 150, 24, 24),
-                        child: Icon(
-                          Icons.label_important_rounded,
-                          size: 50,
-                          color: const Color.fromARGB(255, 0, 0, 0),
+                      Positioned(
+                        bottom: MediaQuery.of(context).size.height - 730,
+                        left: MediaQuery.of(context).size.width * 0.43,
+                        child: Text(
+                          '3/3',
+                          style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20), bottomLeft: Radius.circular(20))),
+                      ),
+                      Positioned(
+                        top: 250,
+                        right: 0,
+                        child: MaterialButton(
+                          height: 130,
+                          minWidth: 80,
+                          elevation: 8,
+                          onPressed: () {
+                            onRegister();
+                          },
+                          color: _isPasswordSixCharacters && _hasPasswordOneNumber
+                              ? Colors.grey[200]
+                              : Color.fromARGB(131, 150, 24, 24),
+                          child: Icon(
+                            Icons.handshake_rounded,
+                            size: 50,
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                          ),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20), bottomLeft: Radius.circular(20))),
+                        ),
                       ),
                     ],
                   ),
