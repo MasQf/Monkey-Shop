@@ -33,9 +33,9 @@ class ProductsProvider with ChangeNotifier {
     description:
         'The Drop is your inside source for must-have style inspiration from global influencers. Shop limited-edition collections and discover chic wardrobe essentials from Staples by the Drop. Look out for trend inspiration, exclusive brand collaborations, and expert styling tips from those in the know.',
     images: [
-      'assets/images/hat.jpg',
-      'assets/images/hat02.jpg',
       'assets/images/hat03.jpg',
+      'assets/images/hat02.jpg',
+      'assets/images/hat.jpg',
     ],
     reviews: [
       Review(

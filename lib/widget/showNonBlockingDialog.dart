@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void showNonBlockingDialog(BuildContext context) {
+void showNonBlockingDialog(BuildContext context, String text) {
   final overlayState = Overlay.of(context);
   final overlayEntry = OverlayEntry(
     builder: (context) => Positioned(
@@ -35,7 +35,7 @@ void showNonBlockingDialog(BuildContext context) {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Removed',
+                  text,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, shadows: [
                     Shadow(
                       color: Colors.white,
@@ -55,7 +55,7 @@ void showNonBlockingDialog(BuildContext context) {
 
   overlayState.insert(overlayEntry);
 
-  Future.delayed(Duration(seconds: 6), () {
+  Future.delayed(Duration(seconds: 2), () {
     overlayEntry.remove();
   });
 }

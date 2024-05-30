@@ -65,7 +65,11 @@ class _AngelDetailState extends State<AngelDetail> {
                             });
                           },
                           icon: angelProduct!.isFavorite
-                              ? Icon(Icons.star_rate_rounded)
+                              ? Icon(
+                                  Icons.star_rate_rounded,
+                                  color: Colors.yellow,
+                                  size: 35,
+                                )
                               : Icon(Icons.star_border_rounded),
                         )
                       ],

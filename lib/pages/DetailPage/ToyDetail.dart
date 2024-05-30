@@ -65,7 +65,11 @@ class _ToyDetailState extends State<ToyDetail> {
                             });
                           },
                           icon: toyProduct!.isFavorite
-                              ? Icon(Icons.star_rate_rounded)
+                              ? Icon(
+                                  Icons.star_rate_rounded,
+                                  color: Colors.yellow,
+                                  size: 35,
+                                )
                               : Icon(Icons.star_border_rounded),
                         )
                       ],

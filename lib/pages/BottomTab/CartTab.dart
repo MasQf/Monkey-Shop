@@ -225,7 +225,7 @@ class _CartTabState extends State<CartTab> {
                     data: IconThemeData(size: 40),
                     child: SlidableAction(
                       onPressed: (context) async {
-                        showNonBlockingDialog(context);
+                        showNonBlockingDialog(context, "Removed");
                         Provider.of<CartProvider>(context, listen: false).removeItem(item.id);
                       },
                       icon: Icons.delete,

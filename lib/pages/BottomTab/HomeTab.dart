@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shop/providers/ProductsProvider.dart';
 import 'package:shop/router/routes.dart';
+import 'package:shop/widget/itemCard.dart';
 import 'package:swipe_deck/swipe_deck.dart';
 
 const IMAGES = ['painting', 'jacket', 'wink', 'toy'];
@@ -117,7 +119,7 @@ class _HomeTabState extends State<HomeTab> {
                                 onTap: () {
                                   Navigator.pushNamed(context, RoutePath.HatDetail);
                                 },
-                                child: promoCard('assets/images/hat.jpg'),
+                                child: promoCard('assets/images/hat03.jpg'),
                               ),
                               GestureDetector(
                                 onTap: () {
@@ -135,7 +137,7 @@ class _HomeTabState extends State<HomeTab> {
                                 onTap: () {
                                   Navigator.pushNamed(context, RoutePath.ToolDetail);
                                 },
-                                child: promoCard('assets/images/tool02.jpg'),
+                                child: promoCard('assets/images/tool.jpg'),
                               ),
                             ],
                           ),
@@ -150,26 +152,26 @@ class _HomeTabState extends State<HomeTab> {
                           height: 20,
                         ),
                         /*
-                              ========Rec商品=========
+                              ========Discount商品=========
                            */
 
                         Row(
                           children: [
-                            Text('Rec  ',
+                            Text('Discount  ',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
                                 )),
                             Icon(
-                              Icons.local_activity_rounded,
+                              Icons.discount_rounded,
                               size: 30,
-                              color: Color.fromARGB(255, 214, 130, 13),
+                              color: Color.fromARGB(255, 195, 104, 240),
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 25,
+                          height: 35,
                         ),
                         /*
                           =========翻卡片========
@@ -205,6 +207,41 @@ class _HomeTabState extends State<HomeTab> {
                       ],
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: Row(
+                      children: [
+                        Text('Rec  ',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        Icon(
+                          Icons.local_activity_rounded,
+                          size: 30,
+                          color: Color.fromARGB(255, 214, 130, 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(11, 20, 11, 20),
+                    child: Wrap(
+                      direction: Axis.horizontal, // 设置水平方向排列
+                      alignment: WrapAlignment.start, // 从左开始排列
+                      spacing: 10.0, // 设置子组件之间的水平间距
+                      runSpacing: 10.0, // 设置行之间的垂直间距
+                      children: [
+                        itemCard(product: ProductsProvider.hat),
+                        itemCard(product: ProductsProvider.angel),
+                        itemCard(product: ProductsProvider.toy),
+                        itemCard(product: ProductsProvider.tool),
+                        itemCard(product: ProductsProvider.angel),
+                        itemCard(product: ProductsProvider.angel),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
