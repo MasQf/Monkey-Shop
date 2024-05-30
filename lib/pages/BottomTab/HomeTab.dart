@@ -233,12 +233,10 @@ class _HomeTabState extends State<HomeTab> {
                       spacing: 10.0, // 设置子组件之间的水平间距
                       runSpacing: 10.0, // 设置行之间的垂直间距
                       children: [
-                        itemCard(product: ProductsProvider.hat),
-                        itemCard(product: ProductsProvider.angel),
-                        itemCard(product: ProductsProvider.toy),
-                        itemCard(product: ProductsProvider.tool),
-                        itemCard(product: ProductsProvider.angel),
-                        itemCard(product: ProductsProvider.angel),
+                        itemCard(product: ProductsProvider.tree),
+                        itemCard(product: ProductsProvider.dumbbell),
+                        itemCard(product: ProductsProvider.basket),
+                        itemCard(product: ProductsProvider.planter),
                       ],
                     ),
                   )
@@ -256,6 +254,13 @@ class _HomeTabState extends State<HomeTab> {
         margin: EdgeInsets.only(right: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(21, 0, 0, 0),
+                offset: Offset(15, 20),
+                blurRadius: 3,
+              )
+            ],
             image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage(image),

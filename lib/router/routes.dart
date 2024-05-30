@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop/pages/DetailPage/DumbbellDetail.dart';
+import 'package:shop/pages/DetailPage/TreeDetail.dart';
 import 'package:shop/widget/Layout.dart';
 import 'package:shop/pages/DetailPage/ToyDetail.dart';
 import 'package:shop/pages/LoginPage/Login.dart';
@@ -40,6 +42,10 @@ class Routes {
         return pageRoute(ToyDetail());
       case RoutePath.ToolDetail:
         return pageRoute(ToolDetail());
+      case RoutePath.TreeDetail:
+        return pageRoute(TreeDetail());
+      case RoutePath.DumbbellDetail:
+        return pageRoute(DumbbellDetail());
     }
     // 错误情况，跳到 Error 页
     return pageRoute(SafeArea(
@@ -94,4 +100,8 @@ class RoutePath {
   static const String ToyDetail = '/toy';
   //tool详情页
   static const String ToolDetail = '/tool';
+  //tree详情页
+  static const String TreeDetail = '/tree';
+  //tree详情页
+  static const String DumbbellDetail = '/dumbbell';
 }

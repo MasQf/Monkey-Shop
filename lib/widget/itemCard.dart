@@ -46,8 +46,17 @@ class _itemCardState extends State<itemCard> {
           width: 180,
           decoration: BoxDecoration(
             color: Color.fromARGB(175, 255, 255, 255),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(60, 0, 0, 0),
+                offset: Offset(0, 1),
+                blurRadius: 5,
+              )
+            ],
             borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
           ),
           child: Padding(
             padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
