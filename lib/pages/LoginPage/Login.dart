@@ -10,6 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/models/UserModel.dart';
 import 'package:shop/providers/UserProvider.dart';
 import 'package:shop/router/routes.dart';
 
@@ -51,14 +52,13 @@ class _LoginState extends State<Login> {
           autoDismiss: true,
           snackbarDuration: Duration(seconds: 2),
         ).show(context);
-        Map<String, dynamic>? userData =
-            await Provider.of<UserProvider>(context, listen: false).getUser(username);
+        User? userData = await Provider.of<UserProvider>(context, listen: false).getUser(username);
         if (userData != null) {
-          String email = userData['email'];
+          String email = userData.email;
           await Provider.of<UserProvider>(context, listen: false)
-              .saveUserToPreferences(username, email);
+              .saveUserToPreferences(username, email, true);
         }
-        Navigator.pushNamed(context, RoutePath.Layout); //登录成功去首页
+        Navigator.pushReplacementNamed(context, RoutePath.Layout); //登录成功去首页
       } else {
         DelightToastBar(
                 builder: (BuildContext context) {

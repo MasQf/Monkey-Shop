@@ -21,7 +21,7 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 249, 226, 124),
-        body: SafeArea(
+        body: Container(
           child: SingleChildScrollView(
             child: Container(
               child: Column(

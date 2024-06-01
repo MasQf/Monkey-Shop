@@ -160,7 +160,7 @@ class _CartTabState extends State<CartTab> {
                               color: Color.fromARGB(255, 49, 62, 69),
                             ),
                           ),
-                          SizedBox(width: 120),
+                          SizedBox(width: 130),
                         ],
                       ),
                     ],
@@ -179,11 +179,11 @@ class _CartTabState extends State<CartTab> {
                     child: Row(
                       children: [
                         Icon(
-                          Icons.wallet,
+                          Icons.handshake_rounded,
                           color: Color.fromARGB(255, 49, 62, 69),
                         ),
                         SizedBox(width: 5),
-                        Text('PAY')
+                        Text('DEAL')
                       ],
                     ),
                     style: ButtonStyle(

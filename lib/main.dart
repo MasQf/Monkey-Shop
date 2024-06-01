@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shop/pages/LoginPage/Login.dart';
 import 'package:shop/providers/CartProvider.dart';
 import 'package:shop/providers/ProductsProvider.dart';
 import 'package:shop/providers/UserProvider.dart';
 import 'package:shop/router/routes.dart';
-import "package:provider/provider.dart";
+import 'package:provider/provider.dart';
 import 'package:shop/widget/Layout.dart';
 
 void main() {
@@ -13,23 +12,19 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key});
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<void> _loadUserFuture;
-
+  UserProvider? userProvider;
   @override
   void initState() {
     super.initState();
-    _loadUserFuture = _loadUser();
   }
 
-  Future<void> _loadUser() async {
-    await Provider.of<UserProvider>(context, listen: false).loadUserFromPreferences();
+  load() {
+    return userProvider?.loadUserFromPreferences();
   }
 
   @override
@@ -48,17 +43,18 @@ class _MyAppState extends State<MyApp> {
           useMaterial3: true,
         ),
         onGenerateRoute: Routes.generateRoute,
-        initialRoute: RoutePath.Layout,
-        // 使用 FutureBuilder 加载用户信息
-        home: FutureBuilder(
-          future: _loadUserFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Login();
-            } else {
-              // 加载完成后，导航到 Layout 页面
-              return Layout();
+        home: Consumer<UserProvider>(
+          builder: (context, userProvider, child) {
+            // Only load user from preferences if it hasn't been loaded yet
+            if (!userProvider.hasLoadedUser) {
+              userProvider.loadUserFromPreferences();
             }
+            return FutureBuilder(
+              future: load(),
+              builder: (context, snapshot) {
+                return userProvider.isLoggedIn ? Layout() : Login();
+              },
+            );
           },
         ),
       ),
