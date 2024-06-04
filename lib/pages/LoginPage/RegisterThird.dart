@@ -172,7 +172,7 @@ class _RegisterThirdState extends State<RegisterThird> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 45),
+                  SizedBox(height: 55),
                   Stack(
                     children: [
                       Transform.scale(

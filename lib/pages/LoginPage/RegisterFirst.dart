@@ -99,7 +99,7 @@ class _RegisterFirstState extends State<RegisterFirst> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 45),
+                  SizedBox(height: 60),
                   Stack(
                     children: [
                       Transform.scale(

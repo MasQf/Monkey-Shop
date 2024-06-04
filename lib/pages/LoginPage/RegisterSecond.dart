@@ -101,7 +101,7 @@ class _RegisterSecondState extends State<RegisterSecond> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 37),
+                  SizedBox(height: 62),
                   Stack(
                     children: [
                       Transform.scale(

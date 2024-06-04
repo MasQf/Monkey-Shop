@@ -15,6 +15,18 @@ class CartItem {
     this.isSelected = true, // 默认选中
   });
 
+  // 从 JSON 数据创建 CartItem 对象
+  factory CartItem.fromJson(Map<String, dynamic> json) {
+    return CartItem(
+      id: json['id'],
+      productName: json['productName'],
+      productPrice: double.parse(json['productPrice'].toString()), // 解析为 double
+      productImage: json['productImage'],
+      quantity: int.parse(json['quantity'].toString()), // 解析为 int
+      isSelected: json['isSelected'] ?? true,
+    );
+  }
+
   // 将 CartItem 转换为 Map
   Map<String, dynamic> toMap() {
     return {

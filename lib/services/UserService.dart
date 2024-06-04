@@ -8,7 +8,7 @@ class UserService {
   // 注册保存用户数据
   Future<User?> saveUser(User user) async {
     Database db = await _databaseHelper.database;
-    int id = await db.insert('users', user.toMap()..remove('id')); // 移除 id 字段
+    int id = await db.insert('users', user.toMap()..remove('id'));
     if (id != 0) {
       return User(
         id: id,

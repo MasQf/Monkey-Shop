@@ -8,7 +8,16 @@ import 'package:provider/provider.dart';
 import 'package:shop/widget/Layout.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductsProvider()),
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -16,47 +25,63 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  UserProvider? userProvider;
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _loadInitialData();
   }
 
-  load() {
-    return userProvider?.loadUserFromPreferences();
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      _saveCartData();
+    }
+  }
+
+  Future<void> _loadInitialData() async {
+    try {
+      await context.read<UserProvider>().loadUserFromPreferences();
+      await context.read<CartProvider>().loadCartFromPreferences();
+    } catch (e) {
+      print("Error loading initial data: $e");
+    }
+  }
+
+  Future<void> _saveCartData() async {
+    try {
+      await context.read<CartProvider>().saveCartToPreferences();
+    } catch (e) {
+      print("Error saving cart data: $e");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => ProductsProvider()),
-        ChangeNotifierProvider(create: (context) => UserProvider()),
-        ChangeNotifierProvider(create: (context) => CartProvider())
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Monkey',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 242, 194, 64)),
-          useMaterial3: true,
-        ),
-        onGenerateRoute: Routes.generateRoute,
-        home: Consumer<UserProvider>(
-          builder: (context, userProvider, child) {
-            // Only load user from preferences if it hasn't been loaded yet
-            if (!userProvider.hasLoadedUser) {
-              userProvider.loadUserFromPreferences();
-            }
-            return FutureBuilder(
-              future: load(),
-              builder: (context, snapshot) {
-                return userProvider.isLoggedIn ? Layout() : Login();
-              },
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Monkey',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 242, 194, 64)),
+        useMaterial3: true,
+      ),
+      onGenerateRoute: Routes.generateRoute,
+      home: Consumer<UserProvider>(
+        builder: (context, userProvider, child) {
+          if (!userProvider.hasLoadedUser) {
+            return Scaffold(
+              body: Center(child: CircularProgressIndicator()),
             );
-          },
-        ),
+          }
+          return userProvider.isLoggedIn ? Layout() : Login();
+        },
       ),
     );
   }

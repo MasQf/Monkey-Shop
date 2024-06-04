@@ -21,7 +21,7 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 249, 226, 124),
-        body: Container(
+        body: SafeArea(
           child: SingleChildScrollView(
             child: Container(
               child: Column(
@@ -232,6 +232,9 @@ class _HomeTabState extends State<HomeTab> {
                       alignment: WrapAlignment.start, // 从左开始排列
                       spacing: 10.0, // 设置子组件之间的水平间距
                       runSpacing: 10.0, // 设置行之间的垂直间距
+                      /*
+                        放置商品
+                       */
                       children: [
                         itemCard(product: ProductsProvider.tree),
                         itemCard(product: ProductsProvider.dumbbell),

@@ -1,11 +1,31 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop/models/CartItemModel.dart';
 import 'package:shop/models/ProductModel.dart';
+import 'dart:convert';
 
 class CartProvider with ChangeNotifier {
   List<CartItem> _items = [];
 
   List<CartItem> get items => _items;
+
+  // 从SharedPreferences中加载购物车内容
+  Future<void> loadCartFromPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? cartData = prefs.getStringList('cart');
+
+    if (cartData != null) {
+      _items = cartData.map((json) => CartItem.fromJson(jsonDecode(json))).toList();
+    }
+    notifyListeners();
+  }
+
+  // 将购物车内容保存到SharedPreferences中
+  Future<void> saveCartToPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> cartData = _items.map((item) => jsonEncode(item.toMap())).toList();
+    prefs.setStringList('cart', cartData);
+  }
 
   void addItem(Product product) {
     final existingIndex = _items.indexWhere((item) => item.id == product.id);
@@ -14,10 +34,10 @@ class CartProvider with ChangeNotifier {
       _items[existingIndex].quantity += 1;
     } else {
       _items.add(CartItem(
-        id: product.id, // 修改为id
+        id: product.id,
         productName: product.name,
         productPrice: product.price,
-        productImage: product.images[0], // Assuming the first image is the main one
+        productImage: product.images[0],
       ));
     }
     notifyListeners();
@@ -25,20 +45,18 @@ class CartProvider with ChangeNotifier {
 
   void addItemQuantity(String id) {
     final index = _items.indexWhere((i) => i.id == id);
-
-    _items[index].quantity += 1;
-
-    notifyListeners();
+    if (index >= 0) {
+      _items[index].quantity += 1;
+      notifyListeners();
+    }
   }
 
   void decreaseItemQuantity(String id) {
     final index = _items.indexWhere((i) => i.id == id);
     if (index >= 0 && _items[index].quantity > 1) {
       _items[index].quantity -= 1;
-    } else if (index >= 0 && _items[index].quantity == 1) {
-      _items[index].quantity = 1;
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   void removeItem(String id) {
@@ -61,19 +79,14 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  // 获取所有商品的总价
   double get totalPrice {
-    return _items
-        .where((item) => item.isSelected)
-        .fold(0.0, (sum, item) => sum + item.productPrice * item.quantity);
+    return _items.fold(0.0, (sum, item) => sum + item.productPrice * item.quantity);
   }
 
-  // 检查是否所有商品都被选中
   bool get isAllSelected {
     return _items.isNotEmpty && _items.every((item) => item.isSelected);
   }
 
-  // 更新商品的选择状态
   void updateItemSelection(String id, bool isSelected) {
     _items = _items.map((item) {
       if (item.id == id) {
@@ -84,7 +97,6 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // 切换所有商品的选择状态
   void toggleSelectAll(bool isSelected) {
     _items = _items.map((item) {
       item.isSelected = isSelected;

@@ -61,14 +61,16 @@ class UserProvider with ChangeNotifier {
   // 从 SharedPreferences 加载用户信息
   Future<void> loadUserFromPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-    if (_isLoggedIn) {
-      _username = prefs.getString('username') ?? '你没有';
-      _email = prefs.getString('email') ?? '登录/注册';
-      _hasLoadedUser = true; // Set hasLoadedUser to true
-      print('===============loadUserFromPreferences===============');
-      notifyListeners();
-    }
+    bool? isLoggedIn = prefs.getBool('isLoggedIn');
+
+    // 如果 isLoggedIn 为 null，则设置为 false
+    _isLoggedIn = isLoggedIn ?? false;
+
+    _username = prefs.getString('username') ?? '你没有';
+    _email = prefs.getString('email') ?? '登录/注册';
+    _hasLoadedUser = true; // Set hasLoadedUser to true
+
+    notifyListeners();
   }
 
   // 获取当前用户登录状态

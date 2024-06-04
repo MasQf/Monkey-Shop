@@ -1,3 +1,4 @@
+import 'package:shop/models/CartItemModel.dart';
 import 'package:shop/models/ProductModel.dart';
 import 'package:shop/models/UserModel.dart';
 import 'package:sqflite/sqflite.dart';
@@ -87,21 +88,16 @@ class DatabaseHelper {
   }
 
   // 用户相关操作
-  // ... existing user-related methods ...
-
-  // 登出所有用户
   Future<void> logoutAllUsers() async {
     Database db = await database;
     await db.update('users', {'isLoggedIn': 0});
   }
 
-  // 登出指定用户
   Future<void> logoutUser(int id) async {
     Database db = await database;
     await db.update('users', {'isLoggedIn': 0}, where: 'id = ?', whereArgs: [id]);
   }
 
-  // 获取已登录用户
   Future<User?> getLoggedInUser() async {
     Database db = await database;
     List<Map<String, dynamic>> result =
@@ -136,5 +132,38 @@ class DatabaseHelper {
   Future<void> deleteProduct(String id) async {
     Database db = await database;
     await db.delete('products', where: 'id = ?', whereArgs: [id]);
+  }
+
+  // 购物车相关操作
+  Future<void> insertCartItem(CartItem item) async {
+    Database db = await database;
+    await db.insert('cart', item.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<List<CartItem>> getCartItemsByUserId(int userId) async {
+    Database db = await database;
+    List<Map<String, dynamic>> result =
+        await db.query('cart', where: 'userId = ?', whereArgs: [userId]);
+    return result.map((map) => CartItem.fromMap(map)).toList();
+  }
+
+  Future<void> clearCartByUserId(int userId) async {
+    Database db = await database;
+    await db.delete('cart', where: 'userId = ?', whereArgs: [userId]);
+  }
+
+  Future<void> removeCartItem(int userId, String productId) async {
+    Database db = await database;
+    await db.delete('cart', where: 'userId = ? AND productId = ?', whereArgs: [userId, productId]);
+  }
+
+  Future<void> updateCartItemQuantity(int userId, String productId, int quantity) async {
+    Database db = await database;
+    await db.update(
+      'cart',
+      {'quantity': quantity},
+      where: 'userId = ? AND productId = ?',
+      whereArgs: [userId, productId],
+    );
   }
 }

@@ -173,9 +173,7 @@ class _CartTabState extends State<CartTab> {
                 child: Container(
                   height: 55,
                   child: ElevatedButton(
-                    onPressed: () {
-                      showAlertDialog(context);
-                    },
+                    onPressed: () {},
                     child: Row(
                       children: [
                         Icon(
