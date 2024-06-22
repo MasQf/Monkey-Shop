@@ -10,8 +10,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/models/CartItemModel.dart';
-import 'package:shop/pages/DetailPage/AngelDetail.dart';
 import 'package:shop/providers/CartProvider.dart';
+import 'package:shop/widget/OrderNumberGenerator.dart';
 import 'package:shop/widget/showNonBlockingDialog.dart';
 
 class CartTab extends StatefulWidget {
@@ -29,6 +29,44 @@ class _CartTabState extends State<CartTab> {
       builder: (context, cartProvider, child) {
         List<Widget> cartItems = cartProvider.items.map((item) => _buildCartItem(item)).toList();
         double totalPrice = cartProvider.totalPrice;
+
+        void _deal() {
+          if (cartProvider.items.isEmpty) {
+            showNonBlockingDialog(context, "Empty cart!");
+            return;
+          }
+
+          if (!cartProvider.hasSelectedItems) {
+            showNonBlockingDialog(context, "None selected!");
+            return;
+          }
+          // 假设这些参数从其他地方获取或生成
+          String o_order_no = OrderNumberGenerator.generateOrderNumber();
+          String o_pay_no = 'P' + o_order_no;
+          String o_waybill_no = 'SF' + o_order_no;
+          double o_charge = cartProvider.totalPrice;
+          double o_goods_value = cartProvider.totalPrice;
+          String o_currency = 'USD';
+          DateTime o_accounting_date = DateTime.now();
+          String o_traf_mode = 'Air';
+          String o_country = 'USA';
+          String o_order_note = 'Null';
+
+          cartProvider.createOrder(
+            o_order_no: o_order_no,
+            o_pay_no: o_pay_no,
+            o_waybill_no: o_waybill_no,
+            o_charge: o_charge,
+            o_goods_value: o_goods_value,
+            o_currency: o_currency,
+            o_accounting_date: o_accounting_date,
+            o_traf_mode: o_traf_mode,
+            o_country: o_country,
+            o_order_note: o_order_note,
+          );
+
+          showNonBlockingDialog(context, "Deal!");
+        }
 
         return Scaffold(
           appBar: widget.showBackButton
@@ -173,7 +211,9 @@ class _CartTabState extends State<CartTab> {
                 child: Container(
                   height: 55,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _deal();
+                    },
                     child: Row(
                       children: [
                         Icon(

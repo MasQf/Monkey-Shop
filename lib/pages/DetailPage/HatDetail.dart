@@ -81,20 +81,22 @@ class _HatDetailState extends State<HatDetail> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // 商品图片
-                      Container(
-                        decoration: BoxDecoration(color: Color.fromARGB(255, 240, 236, 236)),
-                        height: 330,
-                        width: double.infinity,
-                        child: Swiper(
-                          itemCount: hatProduct.images.length,
-                          itemBuilder: (context, index) {
-                            return Image.asset(
-                              hatProduct.images[index],
-                              fit: BoxFit.cover,
-                            );
-                          },
-                          autoplay: false,
-                          pagination: SwiperPagination(),
+                      InteractiveViewer(
+                        child: Container(
+                          decoration: BoxDecoration(color: Color.fromARGB(255, 240, 236, 236)),
+                          height: 330,
+                          width: double.infinity,
+                          child: Swiper(
+                            itemCount: hatProduct.images.length,
+                            itemBuilder: (context, index) {
+                              return Image.asset(
+                                hatProduct.images[index],
+                                fit: BoxFit.cover,
+                              );
+                            },
+                            autoplay: false,
+                            pagination: SwiperPagination(),
+                          ),
                         ),
                       ),
                       SizedBox(height: 20),

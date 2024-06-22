@@ -11,7 +11,7 @@ void showNonBlockingDialog(BuildContext context, String text) {
         color: Colors.transparent,
         child: Center(
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.4, // Adjust width here
+            width: MediaQuery.of(context).size.width * 0.5, // Adjust width here
             height: 110, // Adjust height here
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(

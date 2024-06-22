@@ -178,13 +178,6 @@ class _RegisterSecondState extends State<RegisterSecond> {
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(20), bottomRight: Radius.circular(20))),
                       ),
-                      Text(
-                        '2/3',
-                        style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
                       MaterialButton(
                         height: 130,
                         minWidth: 80,

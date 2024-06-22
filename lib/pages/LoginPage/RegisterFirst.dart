@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,7 +10,7 @@ class RegisterFirst extends StatefulWidget {
   _RegisterFirstState createState() => _RegisterFirstState();
 }
 
-class _RegisterFirstState extends State<RegisterFirst> {
+class _RegisterFirstState extends State<RegisterFirst> with SingleTickerProviderStateMixin {
   bool _isUsernameOneCharacters = false;
   final _usernameController = TextEditingController();
 
@@ -174,17 +175,6 @@ class _RegisterFirstState extends State<RegisterFirst> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(20), bottomRight: Radius.circular(20))),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: MediaQuery.of(context).size.height - 730,
-                        left: MediaQuery.of(context).size.width * 0.43,
-                        child: Text(
-                          '1/3',
-                          style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.w700,
-                          ),
                         ),
                       ),
                       Positioned(

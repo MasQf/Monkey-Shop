@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop/models/OrderModel.dart';
+import 'package:shop/pages/BottomTab/DeclarationForm.dart';
 import 'package:shop/pages/DetailPage/DumbbellDetail.dart';
 import 'package:shop/pages/DetailPage/TreeDetail.dart';
 import 'package:shop/widget/Layout.dart';
@@ -23,6 +25,7 @@ class Routes {
         return pageRoute(CartTab(showBackButton: false)); // 不显示返回按钮
       case RoutePath.Login:
         return pageRoute(Login());
+
       case RoutePath.RegisterFirst:
         return pageRoute(RegisterFirst());
       case RoutePath.RegisterSecond:
@@ -46,6 +49,11 @@ class Routes {
         return pageRoute(TreeDetail());
       case RoutePath.DumbbellDetail:
         return pageRoute(DumbbellDetail());
+      case RoutePath.DeclarationForm:
+        final Order order = settings.arguments as Order;
+        return MaterialPageRoute(
+          builder: (context) => DeclarationForm(order: order),
+        );
     }
     // 错误情况，跳到 Error 页
     return pageRoute(SafeArea(
@@ -104,4 +112,6 @@ class RoutePath {
   static const String TreeDetail = '/tree';
   //tree详情页
   static const String DumbbellDetail = '/dumbbell';
+  //海关申报页面
+  static const String DeclarationForm = '/declarationform';
 }

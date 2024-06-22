@@ -294,17 +294,6 @@ class _RegisterThirdState extends State<RegisterThird> {
                         ),
                       ),
                       Positioned(
-                        bottom: MediaQuery.of(context).size.height - 730,
-                        left: MediaQuery.of(context).size.width * 0.43,
-                        child: Text(
-                          '3/3',
-                          style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      Positioned(
                         top: 250,
                         right: 0,
                         child: MaterialButton(

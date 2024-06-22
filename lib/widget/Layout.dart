@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +8,12 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/pages/BottomTab/CartTab.dart';
+import 'package:shop/pages/BottomTab/OrdersTab.dart';
 import 'package:shop/providers/UserProvider.dart';
 import 'package:shop/router/routes.dart';
 import 'package:shop/pages/BottomTab/HomeTab.dart';
+import 'package:shop/services/DioService.dart';
+import 'package:shop/widget/showNonBlockingDialog.dart';
 
 class Layout extends StatefulWidget {
   Layout({Key? key}) : super(key: key);
@@ -118,14 +122,6 @@ class _LayoutState extends State<Layout> {
                           trailing: Icon(Icons.message),
                         ),
                         ListTile(
-                          title: Text('Like',
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.black54)),
-                          trailing: Icon(Icons.favorite),
-                        ),
-                        ListTile(
                           title: Text('Feedback',
                               style: TextStyle(
                                   fontSize: 25,
@@ -187,7 +183,7 @@ class _LayoutState extends State<Layout> {
                     children: [
                       HomeTab(),
                       CartTab(showBackButton: false),
-                      Text('333'),
+                      OrdersTab(),
                     ],
                   )),
             ));
