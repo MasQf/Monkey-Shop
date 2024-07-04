@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shop/models/OrderModel.dart';
 import 'package:shop/pages/BottomTab/DeclarationForm.dart';
+import 'package:shop/pages/DetailPage/BasketDetail.dart';
 import 'package:shop/pages/DetailPage/DumbbellDetail.dart';
+import 'package:shop/pages/DetailPage/PlanterDetail.dart';
 import 'package:shop/pages/DetailPage/TreeDetail.dart';
 import 'package:shop/widget/Layout.dart';
 import 'package:shop/pages/DetailPage/ToyDetail.dart';
@@ -49,6 +51,10 @@ class Routes {
         return pageRoute(TreeDetail());
       case RoutePath.DumbbellDetail:
         return pageRoute(DumbbellDetail());
+      case RoutePath.BasketDetail:
+        return pageRoute(BasketDetail());
+      case RoutePath.PlanterDetail:
+        return pageRoute(PlanterDetail());
       case RoutePath.DeclarationForm:
         final Order order = settings.arguments as Order;
         return MaterialPageRoute(
@@ -58,7 +64,10 @@ class Routes {
     // 错误情况，跳到 Error 页
     return pageRoute(SafeArea(
       child: Center(
-        child: Text('route path ${settings.name} not found !'),
+        child: Text(
+          'route path ${settings.name} not found !',
+          style: TextStyle(fontSize: 10),
+        ),
       ),
     ));
   }
@@ -110,8 +119,12 @@ class RoutePath {
   static const String ToolDetail = '/tool';
   //tree详情页
   static const String TreeDetail = '/tree';
-  //tree详情页
+  //dumbbell详情页
   static const String DumbbellDetail = '/dumbbell';
+  //basket详情页
+  static const String BasketDetail = '/basket';
+  //basket详情页
+  static const String PlanterDetail = '/planter';
   //海关申报页面
   static const String DeclarationForm = '/declarationform';
 }
